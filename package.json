@@ -1,0 +1,24 @@
+{
+  "name": "cesanime-api",
+  "version": "1.0.0",
+  "description": "api for the app cesanime, make in nodejs ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ces1508/cesanime-api.git"
+  },
+  "keywords": [
+    "nodejs",
+    "cesanime",
+    "api"
+  ],
+  "author": "ces1508 <ces1508@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ces1508/cesanime-api/issues"
+  },
+  "homepage": "https://github.com/ces1508/cesanime-api#readme"
+}
