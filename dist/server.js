@@ -21,10 +21,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var port = process.env.PORT || 3000;
 var app = (0, _express2.default)();
 var db = new _db2.default();
-
+app.set('views', './source/views');
+app.set('view engine', 'pug');
+app.use('/statics', _express2.default.static('./statics'));
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
 
+app.get('/admin', function (req, res) {
+  res.render('admin');
+});
 app.get('/animes', function () {
   var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(req, res) {
     var animes;
@@ -429,6 +434,7 @@ app.post('/anime/:id/vote', function () {
     return _ref10.apply(this, arguments);
   };
 }());
+
 app.get('/animes-top', function () {
   var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee11(req, res) {
     var animes;
@@ -454,6 +460,91 @@ app.get('/animes-top', function () {
 
   return function (_x21, _x22) {
     return _ref11.apply(this, arguments);
+  };
+}());
+app.get('/filter-anime/:anime', function () {
+  var _ref12 = _asyncToGenerator(regeneratorRuntime.mark(function _callee12(req, res) {
+    var anime, animes;
+    return regeneratorRuntime.wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            anime = req.params.anime;
+            _context12.next = 3;
+            return db.filterAnime(anime);
+
+          case 3:
+            animes = _context12.sent;
+
+            if (!animes.error) {
+              _context12.next = 6;
+              break;
+            }
+
+            return _context12.abrupt('return', res.status(500).jsonp(animes));
+
+          case 6:
+            res.status(200).jsonp(animes);
+
+          case 7:
+          case 'end':
+            return _context12.stop();
+        }
+      }
+    }, _callee12, undefined);
+  }));
+
+  return function (_x23, _x24) {
+    return _ref12.apply(this, arguments);
+  };
+}());
+app.get('/category/:category', function () {
+  var _ref13 = _asyncToGenerator(regeneratorRuntime.mark(function _callee13(req, res, next) {
+    var category, animes;
+    return regeneratorRuntime.wrap(function _callee13$(_context13) {
+      while (1) {
+        switch (_context13.prev = _context13.next) {
+          case 0:
+            category = req.params.category;
+
+            category = category.toUpperCase();
+
+            if (!category) {
+              _context13.next = 11;
+              break;
+            }
+
+            _context13.next = 5;
+            return db.getAnimesByCategories(category);
+
+          case 5:
+            animes = _context13.sent;
+
+            if (!animes.error) {
+              _context13.next = 8;
+              break;
+            }
+
+            return _context13.abrupt('return', res.status(500).jsonp(animes));
+
+          case 8:
+            res.status(200).jsonp(animes);
+            _context13.next = 12;
+            break;
+
+          case 11:
+            return _context13.abrupt('return', res.status(500).jsonp({ error: 'la categoria no puede ser nulo o vacia' }));
+
+          case 12:
+          case 'end':
+            return _context13.stop();
+        }
+      }
+    }, _callee13, undefined);
+  }));
+
+  return function (_x25, _x26, _x27) {
+    return _ref13.apply(this, arguments);
   };
 }());
 app.listen(port, function (err) {

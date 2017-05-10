@@ -27,6 +27,7 @@
     "babel-polyfill": "^6.23.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "pug": "^2.0.0-rc.1",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.28"
   },

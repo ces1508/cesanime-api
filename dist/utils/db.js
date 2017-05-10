@@ -584,6 +584,78 @@ var Db = function () {
 
       return animesPopulares;
     }()
+  }, {
+    key: 'filterAnime',
+    value: function () {
+      var _ref13 = _asyncToGenerator(regeneratorRuntime.mark(function _callee13(name) {
+        var animes;
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+          while (1) {
+            switch (_context13.prev = _context13.next) {
+              case 0:
+                _context13.prev = 0;
+                _context13.next = 3;
+                return r.db('cesanime').table('animes').filter(r.row('name').match('(?i)' + name));
+
+              case 3:
+                animes = _context13.sent;
+                return _context13.abrupt('return', animes);
+
+              case 7:
+                _context13.prev = 7;
+                _context13.t0 = _context13['catch'](0);
+                return _context13.abrupt('return', { error: true, message: _context13.t0.message });
+
+              case 10:
+              case 'end':
+                return _context13.stop();
+            }
+          }
+        }, _callee13, this, [[0, 7]]);
+      }));
+
+      function filterAnime(_x14) {
+        return _ref13.apply(this, arguments);
+      }
+
+      return filterAnime;
+    }()
+  }, {
+    key: 'getAnimesByCategories',
+    value: function () {
+      var _ref14 = _asyncToGenerator(regeneratorRuntime.mark(function _callee14(category) {
+        var animes;
+        return regeneratorRuntime.wrap(function _callee14$(_context14) {
+          while (1) {
+            switch (_context14.prev = _context14.next) {
+              case 0:
+                _context14.prev = 0;
+                _context14.next = 3;
+                return r.db('cesanime').table('animes').filter(r.row("categories").contains(category));
+
+              case 3:
+                animes = _context14.sent;
+                return _context14.abrupt('return', animes);
+
+              case 7:
+                _context14.prev = 7;
+                _context14.t0 = _context14['catch'](0);
+                return _context14.abrupt('return', { error: true, message: _context14.t0.message });
+
+              case 10:
+              case 'end':
+                return _context14.stop();
+            }
+          }
+        }, _callee14, this, [[0, 7]]);
+      }));
+
+      function getAnimesByCategories(_x15) {
+        return _ref14.apply(this, arguments);
+      }
+
+      return getAnimesByCategories;
+    }()
   }]);
 
   return Db;

@@ -142,4 +142,22 @@ export default class Db {
       return {error: true, message: e.message}
     }
   }
+
+  async filterAnime (name) {
+    try {
+      let animes = await r.db('cesanime').table('animes').filter(r.row('name').match(`(?i)${name}`))
+      return animes
+    } catch (e) {
+      return {error: true, message: e.message}
+    }
+  }
+
+  async getAnimesByCategories (category) {
+    try {
+      let animes = await r.db('cesanime').table('animes').filter(r.row("categories").contains(category))
+      return animes
+    } catch (e) {
+      return {error: true, message: e.message}
+    }
+  }
 }

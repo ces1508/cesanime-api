@@ -6,10 +6,15 @@ import Db from './utils/db'
 const port = process.env.PORT || 3000
 const app = express()
 const db = new Db()
-
+app.set('views','./source/views')
+app.set('view engine', 'pug')
+app.use('/statics',express.static('./statics'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.get('/admin',  (req, res) => {
+  res.render('admin')
+})
 app.get('/animes', async (req, res) => {
   let animes = await db.getAnimes()
   res.status(200).jsonp(animes)
@@ -127,9 +132,31 @@ app.post('/anime/:id/vote', async (req, res) => {
   }
   res.status(201).jsonp(voted)
 })
+
 app.get('/animes-top', async (req, res) => {
   let animes = await db.animesPopulares()
   res.status(200).jsonp(animes)
+})
+app.get('/filter-anime/:anime', async (req, res) => {
+  let anime = req.params.anime
+  let animes = await db.filterAnime(anime)
+  if (animes.error) {
+    return res.status(500).jsonp(animes)
+  }
+  res.status(200).jsonp(animes)
+})
+app.get('/category/:category', async (req, res, next) => {
+  let category = req.params.category
+  category = category.toUpperCase()
+  if (category) {
+    let animes = await db.getAnimesByCategories(category)
+    if (animes.error) {
+      return res.status(500).jsonp(animes)
+    }
+    res.status(200).jsonp(animes)
+  } else {
+    return res.status(500).jsonp({error: 'la categoria no puede ser nulo o vacia'})
+  }
 })
 app.listen(port, (err) => {
   if (err) {
