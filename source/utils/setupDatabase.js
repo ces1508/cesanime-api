@@ -1,10 +1,10 @@
+require("babel-polyfill")
 const connection = {
   host: process.env.HOST_DATABASE || 'localhost',
   port: process.env.HOST_DATABASE || 28015,
   db: 'cesanime'
 }
 const r = require('rethinkdbdash')(connection)
-require("babel-polyfill")
 async function setup () {
   let tableList = await r.tableList()
   if (tableList.indexOf('animes') === -1) {

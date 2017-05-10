@@ -1,5 +1,5 @@
 'use strict';
-
+require('babel-polyfill');
 var setup = function () {
   var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
     var tableList;
@@ -122,13 +122,13 @@ var setup = function () {
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+require("babel-polyfill");
 var connection = {
   host: process.env.HOST_DATABASE || 'localhost',
   port: process.env.HOST_DATABASE || 28015,
   db: 'cesanime'
 };
 var r = require('rethinkdbdash')(connection);
-require("babel-polyfill");
 
 setup().then(function (data) {
   console.log(data);
