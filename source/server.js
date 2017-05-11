@@ -44,8 +44,8 @@ app.patch('/anime/:id', async (req, res) => {
   if (data.thumbnail) {
     dataChange.thumbnail = data.thumbnail
   }
-  if (data.categoryId) {
-    dataChange.categoryId = data.categoryId
+  if (data.categories) {
+    dataChange.categories = data.categories
   }
 
   let updated = await db.updatedAnime(id, dataChange)

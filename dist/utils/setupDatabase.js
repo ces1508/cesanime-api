@@ -1,5 +1,5 @@
 'use strict';
-require('babel-polyfill');
+require("babel-polyfill");
 var setup = function () {
   var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
     var tableList;
@@ -52,7 +52,7 @@ var setup = function () {
             _context.prev = 20;
             _context.t1 = _context['catch'](14);
 
-            console.log('error creating table categories: ' + err.message);
+            console.log('error creating table categories: ' + _context.t1.message);
 
           case 23:
             if (!(tableList.indexOf('episodes') === -1)) {
@@ -62,7 +62,7 @@ var setup = function () {
 
             _context.prev = 24;
             _context.next = 27;
-            return r.ta('episodes');
+            return r.tableCreate('episodes');
 
           case 27:
             console.log('table episodes created');
@@ -73,46 +73,54 @@ var setup = function () {
             _context.prev = 30;
             _context.t2 = _context['catch'](24);
 
-            console.log('error creating table episodes: ' + err.message);
+            console.log('error creating table episodes: ' + _context.t2.message);
 
           case 33:
             console.log('creating index ...');
             _context.prev = 34;
             _context.next = 37;
-            return r.table('episodes').indexCreate('animeId');
+            return r.table('animes').indexCreate('categoryId');
 
           case 37:
             _context.next = 39;
-            return r.table('episodes').indexCreate('name');
+            return r.table('animes').indexCreate('name');
 
           case 39:
             _context.next = 41;
-            return r.table('animes').indexWait();
+            return r.table('episodes').indexCreate('animeId');
 
           case 41:
             _context.next = 43;
-            return r.table('episodes').indexWait();
+            return r.table('episodes').indexCreate('name');
 
           case 43:
             _context.next = 45;
-            return r.table('categories').indexWait();
+            return r.table('animes').indexWait();
 
           case 45:
-            _context.next = 50;
-            break;
+            _context.next = 47;
+            return r.table('episodes').indexWait();
 
           case 47:
-            _context.prev = 47;
+            _context.next = 49;
+            return r.table('categories').indexWait();
+
+          case 49:
+            _context.next = 54;
+            break;
+
+          case 51:
+            _context.prev = 51;
             _context.t3 = _context['catch'](34);
 
             console.log('error ' + _context.t3.message);
 
-          case 50:
+          case 54:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, this, [[4, 10], [14, 20], [24, 30], [34, 47]]);
+    }, _callee, this, [[4, 10], [14, 20], [24, 30], [34, 51]]);
   }));
 
   return function setup() {
@@ -124,14 +132,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 require("babel-polyfill");
 var connection = {
-  host: process.env.HOST_DATABASE || 'localhost',
+  host: process.env.HOST_DATABASE || '45.55.147.2',
   port: process.env.HOST_DATABASE || 28015,
   db: 'cesanime'
 };
 var r = require('rethinkdbdash')(connection);
 
-setup().then(function (data) {
-  console.log(data);
-}).catch(function (err) {
-  console.log(err.message);
-});
+setup();
