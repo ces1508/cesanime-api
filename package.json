@@ -24,19 +24,32 @@
   },
   "homepage": "https://github.com/ces1508/cesanime-api#readme",
   "dependencies": {
+    "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "pug": "^2.0.0-rc.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
     "rethinkdb": "^2.3.3",
-    "rethinkdbdash": "^2.3.28"
+    "rethinkdbdash": "^2.3.28",
+    "uuid-base62": "^0.1.0"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
+    "babel-loader": "^7.0.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.4.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.24.1"
+    "babel-register": "^6.24.1",
+    "css-loader": "^0.28.1",
+    "file-loader": "^0.11.1",
+    "json-loader": "^0.5.4",
+    "style-loader": "^0.17.0",
+    "webpack": "^2.5.1"
   }
 }

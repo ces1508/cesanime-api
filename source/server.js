@@ -6,15 +6,26 @@ import Db from './utils/db'
 const port = process.env.PORT || 3000
 const app = express()
 const db = new Db()
-app.set('views','./source/views')
+app.set('views','./views')
 app.set('view engine', 'pug')
-app.use('/statics',express.static('./statics'))
+app.use('/statics',express.static('./dist/'))
+app.use('/images', express.static('./dist/assets/img/'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
 
 app.get('/admin',  (req, res) => {
   res.render('admin')
 })
+
+app.get('/admin/dashboard', (req, res) => {
+  res.render('dashboard')
+})
+app.get('/admin/anime/:id/edit', (req, res) => {
+  res.render('dashboard')
+})
+
+
 app.get('/animes', async (req, res) => {
   let animes = await db.getAnimes()
   res.status(200).jsonp(animes)
@@ -37,6 +48,7 @@ app.post('/anime', async (req, res,) => {
 app.patch('/anime/:id', async (req, res) => {
   let id = req.params.id
   let data = req.body
+  console.log('body', data)
   let dataChange  = {}
   if (data.name) {
     dataChange.name = data.name
@@ -58,6 +70,7 @@ app.patch('/anime/:id', async (req, res) => {
   }
   res.status(200).jsonp(updated)
 })
+
 
 app.delete('/anime/:id', async (req, res) => {
   let id = req.params.id
